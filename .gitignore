@@ -9,3 +9,6 @@ docs/**/*
 !docs/*.md
 dist/
 node_modules
+
+public/index.*
+public/service-worker.*

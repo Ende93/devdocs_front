@@ -4,21 +4,21 @@ const pkg = require('../package.json')
 
 const webpack = require('webpack')
 const path = require('path')
-const ASSET_PATH = process.env.ASSET_PATH || path.join(__dirname, '../dist');
+const ASSET_PATH = process.env.ASSET_PATH || '';
 
 module.exports = {
-  mode: 'development',
   entry: {
     index: path.join(__dirname, '../assets/javascripts/index.js'),
     'service-worker': path.join(__dirname, '../assets/javascripts/service-worker.js')
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, '../assets')
+      '@': path.resolve(__dirname, '../assets'),
+      '@public': path.resolve(__dirname, '../public'),
     },
   },
   output: {
-    path: ASSET_PATH,
+    path: path.join(__dirname, '../public'),
     filename: '[name].js',
     publicPath: ASSET_PATH,
   },
@@ -42,12 +42,6 @@ module.exports = {
     }),
     new MiniCssExtractPlugin(),
   ],
-  devServer: {
-    contentBase: path.join(__dirname, "../dist"),
-    compress: false,
-    port: 9000,
-    open: true,
-  },
   module: {
     rules: [
       {
@@ -68,6 +62,10 @@ module.exports = {
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader']
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
       },
     ]
   }
