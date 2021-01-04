@@ -1,0 +1,12 @@
+.DS_Store
+.bundle
+log
+tmp
+public/assets
+public/fonts
+public/docs/**/*
+docs/**/*
+!docs/*.md
+vendor
+dist/
+node_modules
