@@ -1,12 +1,10 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const pkg = require('../package.json')
 
-const webpack = require('webpack')
 const path = require('path')
 const ASSET_PATH = process.env.ASSET_PATH || '';
 
-module.exports = {
+module.exports = (plugins) => ({
   entry: {
     index: path.join(__dirname, '../assets/javascripts/index.js'),
     'service-worker': path.join(__dirname, '../assets/javascripts/service-worker.js')
@@ -30,17 +28,8 @@ module.exports = {
         cdn_origin: ASSET_PATH,
       }
     }),
-    new webpack.DefinePlugin({
-      'APP': JSON.stringify({
-        doc_index_urls: [],
-        service_worker_cache_name: Date.now(),
-        service_worker_asset_urls: [],
-        news: [],
-        docs_manifest_path: [],
-        version: pkg.version,
-      })
-    }),
     new MiniCssExtractPlugin(),
+    ...plugins,
   ],
   module: {
     rules: [
@@ -69,4 +58,4 @@ module.exports = {
       },
     ]
   }
-}
+})

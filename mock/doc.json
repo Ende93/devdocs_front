@@ -1,0 +1,14 @@
+[
+    {
+        "name": "React",
+        "slug": "react",
+        "type": "simple",
+        "links": {
+          "home": "https://reactjs.org/",
+          "code": "https://github.com/facebook/react"
+        },
+        "release": "17.0.1",
+        "mtime": 1605299153,
+        "db_size": 1479571
+    }
+]

@@ -1,6 +1,20 @@
 const base = require('./base')
+const webpack = require('webpack');
+const pkg = require('../package.json')
 
 module.exports = {
-  ...base,
+  ...base([
+    new webpack.DefinePlugin({
+      'APP': JSON.stringify({
+        doc_index_urls: [],
+        service_worker_cache_name: Date.now(),
+        service_worker_asset_urls: [],
+        news: [],
+        docs_manifest_path: [],
+        docs: [],
+        version: pkg.version,
+      })
+    }),
+  ]),
   mode: 'production',
 }
