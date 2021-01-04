@@ -7,6 +7,5 @@ public/fonts
 public/docs/**/*
 docs/**/*
 !docs/*.md
-vendor
 dist/
 node_modules

@@ -4,6 +4,7 @@ const pkg = require('../package.json')
 
 const webpack = require('webpack')
 const path = require('path')
+const ASSET_PATH = process.env.ASSET_PATH || path.join(__dirname, '../dist');
 
 module.exports = {
   mode: 'development',
@@ -17,15 +18,16 @@ module.exports = {
     },
   },
   output: {
-    path: path.join(__dirname, '../dist'),
+    path: ASSET_PATH,
     filename: '[name].js',
+    publicPath: ASSET_PATH,
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, '../assets/views/index.ejs'),
       templateParameters: {
         canonical_origin: './',
-        cdn_origin: './',
+        cdn_origin: ASSET_PATH,
       }
     }),
     new webpack.DefinePlugin({
