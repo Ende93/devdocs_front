@@ -11,7 +11,6 @@ module.exports = {
         service_worker_cache_name: Date.now(),
         service_worker_asset_urls: [],
         news: [],
-        docs_manifest_path: [],
         version: 'development',
         docs,
       })

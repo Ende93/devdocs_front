@@ -7,6 +7,7 @@ public/fonts
 public/docs/**/*
 docs/**/*
 !docs/*.md
+*.lock
 dist/
 node_modules
 
