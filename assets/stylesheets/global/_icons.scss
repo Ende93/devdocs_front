@@ -1,12 +1,12 @@
-.doc-icon {
-  content: '';
-  display: block;
+._list-icon {
+  float: left;
+  margin: .25rem .625rem 0 0;
   width: 1rem;
   height: 1rem;
 }
 
 html._theme-dark {
-  .doc-icon {
+  ._list-icon {
     filter: invert(100%) grayscale(100%);
     -webkit-filter: invert(100%) grayscale(100%);
   }

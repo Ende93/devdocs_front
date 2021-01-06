@@ -2,14 +2,29 @@ templates = app.templates
 
 arrow = """<svg class="_list-arrow"><use xlink:href="#icon-dir"/></svg>"""
 
+sidebarIcon = (doc) =>
+  icon = '';
+  if  doc.iconSrc
+    icon += then """<img class="_list-icon" alt="#{doc.fullName}" src=#{doc.iconSrc}"""
+    icon += if doc.iconSrc2x then """srcset="#{doc.iconSrc2x} 2x""" else ''
+    icon += '>'
+  else
+    # take icon space
+    icon += """<span class="_list-icon"></span>"""
+  return icon
+
 templates.sidebarDoc = (doc, options = {}) ->
   link  = """<a href="#{doc.fullPath()}" class="_list-item _icon-#{doc.icon} """
   link += if options.disabled then '_list-disabled' else '_list-dir'
   link += """" data-slug="#{doc.slug}" title="#{doc.fullName}" tabindex="-1">"""
+
   if options.disabled
     link += """<span class="_list-enable" data-enable="#{doc.slug}">Enable</span>"""
-  else
+  else if !doc.entries.isEmpty()
     link += arrow
+
+  link += sidebarIcon(doc)
+
   link += """<span class="_list-count">#{doc.release}</span>""" if doc.release
   link += """<span class="_list-text">#{doc.name}"""
   link += " #{doc.version}" if options.fullName or options.disabled and doc.version
@@ -27,7 +42,7 @@ templates.sidebarResult = (entry) ->
   else
     """<span class="_list-reveal" data-reset-list title="Reveal in list"></span>"""
   addons += """<span class="_list-count">#{entry.doc.short_version}</span>""" if entry.doc.version and not entry.isIndex()
-  """<a href="#{entry.fullPath()}" class="_list-item _list-hover _list-result _icon-#{entry.doc.icon}" tabindex="-1">#{addons}<span class="_list-text">#{$.escape entry.name}</span></a>"""
+  """<a href="#{entry.fullPath()}" class="_list-item _list-hover _list-result _icon-#{entry.doc.icon}" tabindex="-1">#{sidebarIcon(entry.doc)} #{addons}<span class="_list-text">#{$.escape entry.name}</span></a>"""
 
 templates.sidebarNoResults = ->
   html = """ <div class="_list-note">No results.</div> """

@@ -12,6 +12,7 @@ module.exports = {
         service_worker_asset_urls: [],
         news: [],
         version: 'development',
+        docs_origin: '/docs',
         docs,
       })
     }),

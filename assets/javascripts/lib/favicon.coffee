@@ -5,6 +5,9 @@ imageCache = {}
 urlCache = {}
 
 withImage = (url, action) ->
+  if !url
+    return
+
   if imageCache[url]
     action(imageCache[url])
   else
@@ -28,19 +31,13 @@ window.setFaviconForDoc = (doc) ->
     currentSlug = doc.slug
     return
 
-  iconEl = $("._icon-#{doc.slug.split('~')[0]}")
+  iconEl = $("._icon-#{doc.slug.split('~')[0]} img")
   return if iconEl == null
 
-  styles = window.getComputedStyle(iconEl, ':before')
+  return if iconEl.src == undefined
 
-  backgroundPositionX = styles['background-position-x']
-  backgroundPositionY = styles['background-position-y']
-  return if backgroundPositionX == undefined || backgroundPositionY == undefined
-
-  bgUrl = app.config.favicon_spritesheet
-  sourceSize = 16
-  sourceX = Math.abs(parseInt(backgroundPositionX.slice(0, -2)))
-  sourceY = Math.abs(parseInt(backgroundPositionY.slice(0, -2)))
+  bgUrl = iconEl.src
+  sourceSize = iconEl.width
 
   withImage(bgUrl, (docImg) ->
     withImage(defaultUrl, (defaultImg) ->
@@ -57,7 +54,7 @@ window.setFaviconForDoc = (doc) ->
       destinationCoords = size / 100 * (100 - docIconPercentage)
       destinationSize = size / 100 * docIconPercentage
 
-      ctx.drawImage(docImg, sourceX, sourceY, sourceSize, sourceSize, destinationCoords, destinationCoords, destinationSize, destinationSize)
+      ctx.drawImage(docImg, destinationCoords, destinationCoords, destinationSize, destinationSize)
 
       try
         urlCache[doc.slug] = canvas.toDataURL()
