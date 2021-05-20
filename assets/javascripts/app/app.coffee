@@ -32,10 +32,24 @@ window.app =
       @DOC = JSON.parse(document.body.getAttribute('data-doc'))
       @bootOne()
     else if @DOCS
-      @bootAll()
+      if typeof @DOCS == 'string'
+        @loadDocs(@DOCS)
+      else
+        @bootAll()
     else
       @onBootError()
     return
+
+  loadDocs: (docsUrl) ->
+    callback = (data) =>
+      @DOCS = data
+      @bootAll()
+      return
+
+    ajax
+      url: docsUrl
+      success: callback   
+      error: () => @onBootError()
 
   browserCheck: ->
     return true if @isSupportedBrowser()
