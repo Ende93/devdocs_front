@@ -13,3 +13,4 @@ node_modules
 
 public/index.*
 public/service-worker.*
+public/workbox*
