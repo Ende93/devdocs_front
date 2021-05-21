@@ -11,7 +11,7 @@ run `yarn start`
 replace `docs_origin` and `docs` props with your server url on `./webpack/prod.js` and run build script.
 
 eg:
-```json
+```js
 'APP': JSON.stringify({
     news: [],
     // if you want deploy your own server, please follow https://github.com/freeCodeCamp/devdocs
